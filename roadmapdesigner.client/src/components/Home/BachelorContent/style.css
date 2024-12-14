@@ -1,0 +1,36 @@
+.container-content__direction{
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 1216px;
+    margin-top: 40px;
+    gap: 74px;
+}
+
+.column_direction{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.block_direction{
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 24px;
+}
+
+.titile_direction{
+    font-family: var(--font-Regular);
+    font-size: 20px;
+    line-height: 24.76px;
+    margin-bottom: 20px;
+}
+
+.directions{
+    font-family: var(--font-Regular);
+    font-size: 16px;
+    line-height: 19.81px;
+    margin-bottom: 12px;
+}
+
+.directions:hover{
+    color: black;
+}

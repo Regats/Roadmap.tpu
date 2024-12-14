@@ -1,0 +1,384 @@
+@import "./reset.css";
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+@font-face {
+    font-family: "ALS_Sirius_Regular"; /* Название шрифта */
+    src: url("/accets/font/ALS_Sirius_Regular_0.95.otf") format("truetype"); /* Путь к файлу шрифта */
+    font-weight: 400; /* Нормальное начертание */
+    font-style: normal; /* Обычный стиль */
+}
+
+@font-face {
+    font-family: "ALS_Sirius_Bold"; /* Название шрифта */
+    src: url("/accets/font/ALS_Sirius_Bold_0.95.otf") format("truetype"); /* Путь к файлу шрифта */
+    font-weight: 700; /* Жирное начертание */
+    font-style: normal; /* Обычный стиль */
+}
+:root{
+    --font-Regular: "ALS_Sirius_Regular", sans-serif;
+    --font-Bold: "ALS_Sirius_Bold", sans-serif;
+    --yellow: rgba(224, 228, 111, 1);
+    --orange: rgba(253, 207, 103, 1)
+}
+.als_sirius_Regular{
+    font-family: "ALS_sirius_Regular", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.als_sirius_Bold{
+    font-family: "ALS_Sirius_Bold", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+body{
+    display: inline;
+}
+/*_________________________Header___________________________*/
+
+.container-header{
+    display: flex;
+    margin: 0 auto;
+    background-color: rgba(42, 42, 42, 1);
+    background-image: url("./backgroung.svg");
+    background-position: 0px -6px;
+    justify-content: center;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content:  space-between;
+    padding: 29px 0px 29px 0px;
+    width: 1216px;
+}
+
+.nav{
+    display: flex;
+    gap: 36px;
+    align-items: center;
+    font-family: "ALS_sirius_Regular";
+    font-size: 16px;
+}
+
+.btn{
+    padding: 12px 30px;
+    border-radius: 10px;
+    background-color: #626262;
+    font-family: "ALS_sirius_Regular";
+    font-weight: 700;
+    color: white;
+}
+.btn:hover{
+    color: #626262;
+    background-color: white;
+    padding: 12.2px 30.2px;
+}
+.nav__link{
+    color: #585860;
+}
+.nav__link:hover{
+    color: white;
+}
+
+/*___________________Content_____________________*/
+
+.container_body{
+    display: flex;
+    background-color: rgba(29, 29, 29, 1);
+    background-image: url("./backgroung.svg");
+    margin: 0 auto;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.conteiner-content_name{
+    display: flex;
+    flex-direction: column;
+    padding: 190px 55px 169px;
+    width: 1216px;
+}
+
+.content-name{
+    color: white;
+    font-family: "MuseoModerno", sans-serif;
+    font-size: 128px;
+    font-weight: 700;
+    line-height: 92.33px;
+    letter-spacing: 0.09em;
+    text-align: center;
+    margin-top: -121px;
+}
+
+.content-name_behaind{
+    color: rgba(98, 98, 98, 0.75);
+    font-family: "MuseoModerno", sans-serif;
+    font-size: 134.93px;
+    font-weight: 700;
+    line-height: 97.33px;
+    letter-spacing: 0.09em;
+    text-align: center;
+}
+
+.container_boards{
+    display: flex;
+    flex-flow: row wrap;
+    width: 1216px;
+}
+
+.board{
+    width: 512px;
+    height: 202px;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.yellow_text{
+    color: var(--yellow);
+    font-family: var(--font-Bold);
+    line-height: 39.62px;
+    font-size: 32px;
+    padding-top: 20px;
+    padding-left: 24px;
+    letter-spacing: 0.09em;
+}
+.content_text{
+    color: white;
+    font-family: var(--font-Regular);
+    font-size: 16px;
+    line-height: 19.81px;
+    padding-top: 8px;
+    padding-left: 24px;
+    letter-spacing: 0.09em;
+}
+
+.lower_part{
+    width: 512px;
+    height: 13px;
+    background: var(--yellow);
+    border-radius: 0px 0px 15px 15px;
+}
+
+.first_board{
+    background: rgba(130, 73, 157, 1);
+    height: 189px;
+}
+.first_board_position{
+    position: relative;
+    display: flex;
+    flex-flow: row;
+}
+.step_1{
+    width: 93px;
+    height: 36px;
+    border-radius: 15px;
+    background: var(--yellow);
+    position: relative;
+    top: -220px; left: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-Regular);
+    font-size: 16px;
+    line-height: 19.81px;
+    letter-spacing: 0.09em;
+}
+.second_board{
+    background: rgba(73, 150, 157, 1);
+    height: 189px;
+}
+.second_board_position{
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    top: -11px; left: 230px
+}
+.step_2{
+    width: 93px;
+    height: 36px;
+    border-radius: 15px;
+    background: var(--yellow);
+    position: relative;
+    top: -220px; left: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-Regular);
+    font-size: 16px;
+    line-height: 19.81px;
+    letter-spacing: 0.09em;
+}
+.third_board{
+    background: rgba(222, 139, 56, 1);
+    height: 189px;
+}
+.third_board_position{
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    top: -58px;
+}
+.step_3{
+    width: 93px;
+    height: 36px;
+    border-radius: 15px;
+    background: var(--yellow);
+    position: relative;
+    top: -220px; left: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-Regular);
+    font-size: 16px;
+    line-height: 19.81px;
+    letter-spacing: 0.09em;
+}
+.fourth_board{
+    background: rgba(41, 99, 166, 1);
+    height: 189px;
+}
+.fourth_board_position{
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    top: -106px; left: 704px;
+}
+
+.first_line{
+    width: 474px;
+    height: 122px;
+    position: relative;
+    left: -16px; top: 85px;
+    z-index: 1;
+}
+.second_line{
+    width: 474px;
+    height: 122px;
+    position: relative;
+    left: 16px; top: 85px;
+    z-index: 1;
+}
+
+/*____________Content_direction_______________*/
+.container_own_body{
+    display: flex;
+    justify-content: center;
+    background: rgba(243, 245, 246, 1);
+    max-height: 1006px;
+}
+
+.container_direction{
+    width: 1216px;
+}
+
+.table_content{
+    font-family: var(--font-Bold);
+    font-size: 55px;
+    line-height: 68.09px;
+    padding-top: 96px;
+    letter-spacing: 0.09em;
+}
+.step_education{
+    display: flex;
+    flex-flow: row;
+    gap: 61px;
+    margin-top: 37px;
+    margin-bottom: 37px;
+}
+.btn_bachelor{
+    width: 455px;
+    height: 49px;
+    padding: 12px 39px 12px 39px;
+    border-radius: 30px;
+    border: 2px solid black;
+    font-family: var(--font-Bold);
+    font-size: 20px;
+    line-height: 24.76px;
+    letter-spacing: 0.09em;
+}
+
+.btn_magistracy{
+    width: 268px;
+    height: 49px;
+    padding: 12px 44px 12px 44px;
+    border-radius: 30px;
+    border: 2px solid black;
+    font-family: var(--font-Bold);
+    font-size: 20px;
+    line-height: 24.76px;
+    letter-spacing: 0.09em;
+}
+
+.btn_graduate{
+    width: 255px;
+    height: 49px;
+    padding: 12px 44px 12px 44px;
+    border-radius: 30px;
+    border: 2px solid black;
+    font-family: var(--font-Bold);
+    font-size: 20px;
+    line-height: 24.76px;
+    letter-spacing: 0.09em;
+}  
+
+/*____________________Footer____________________*/
+.container-footer{
+    display: flex;
+    height: 445px;
+    background: rgba(29, 29, 29, 1);
+    justify-content: center;
+}
+.container-footer_content{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 802px;
+}
+.footer_logo{
+    margin-top: 70px;
+}
+.footer_content_name{
+    font-family: var(--font-Regular);
+    font-size: 14px;
+    line-height: 17.33px;
+    color: rgba(166, 166, 166, 1);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    letter-spacing: 0.09em;
+}
+.footer_label{
+    font-family: var(--font-Regular);
+    font-size: 14px;
+    line-height: 17.33px;
+    color: rgba(166, 166, 166, 1);
+    margin-bottom: 4px;
+    letter-spacing: 0.09em;
+}
+
+.rect{
+    background: rgba(166, 166, 166, 1);
+    width: 195px;
+    height: 1px;
+    border-radius: 40px;
+    margin-bottom: 16px;
+}
+
+.footer_contact{
+    font-family: var(--font-Regular);
+    font-size: 16px;
+    line-height: 19.81px;
+    color:  rgba(255, 255, 255, 1);
+    letter-spacing: 0.09em;
+    margin-bottom: 12px;
+}
+
+.footer_roadmap{
+    font-family: 'MuseoModerno', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 31.8px;
+    letter-spacing: 0.09em;
+    color: white;
+    margin-top: 70px;
+}
