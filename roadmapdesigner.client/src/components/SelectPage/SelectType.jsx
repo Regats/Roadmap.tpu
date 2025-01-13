@@ -35,9 +35,7 @@ export function SelectType({title}) {
             <div className={s.selectNameProgramm}>Основная образовательная программа</div>
             <select name="selectedProgramm">
                 <option value="">Выбор из списка</option>
-                <option value="apple">Apple</option>
-                <option value="banana">Banana</option>
-                <option value="orange">Orange</option>
+                      <option value="apple">Промышленная разработка программного обеспечения</option>
             </select>
             <div className={s.selectNameProgramm}>Форма обучения</div>
             <select name="selectedProgramm">
