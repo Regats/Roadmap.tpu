@@ -1,13 +1,22 @@
 ﻿using RoadmapDesigner.Server.Models.DTO;
-using RoadmapDesigner.Server.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RoadmapDesigner.Server.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDTO> GetUserByGuidAsync(Guid userID);
+        // Метод для асинхронного получения пользователя по UUID
+        Task<UserDTO> GetUserByGuidAsync(Guid userUuid);
+
+        // Метод для асинхронного получения списка всех пользователей
         Task<List<UserDTO>> GetUsersAsync();
-        Task<bool> UpdateUserAsync(Guid userID);
-        Task<bool> DeleteUserAsync(Guid userID);
+
+        // Метод для асинхронного обновления пользователя по UUID
+        Task<bool> UpdateUserAsync(Guid userUuid);
+
+        // Метод для асинхронного удаления пользователя по UUID
+        Task<bool> DeleteUserAsync(Guid userUuid);
     }
 }

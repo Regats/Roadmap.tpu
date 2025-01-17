@@ -1,11 +1,16 @@
 ﻿using RoadmapDesigner.Server.Models.DTO;
-using RoadmapDesigner.Server.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RoadmapDesigner.Server.Interfaces
 {
     public interface IDirectionTrainingRepository
     {
-        Task<IEnumerable<VersionsDirectionTrainingDTO>> GetAllVersionsDirectionTrainingAsync();
-        Task<VersionsDirectionTrainingDTO> GetVersionDirectionTrainingDetailsAsync(Guid uuid);
+        // Метод для асинхронного получения всех версий направления обучения
+        Task<IEnumerable<VersionsDirectionTrainingDTO>> GetAllAsync();
+
+        // Метод для асинхронного получения деталей версии направления обучения по UUID
+        Task<VersionsDirectionTrainingDTO> GetDetailsAsync(Guid uuid);
     }
 }

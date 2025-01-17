@@ -1,12 +1,16 @@
 ﻿using RoadmapDesigner.Server.Models.DTO;
-using RoadmapDesigner.Server.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RoadmapDesigner.Server.Interfaces
 {
     public interface IDirectionTrainingService
     {
-        Task<List<TrainingArea>> SortAllDirectionTrainingToTrainingAreas();
+        // Метод для получения всех областей обучения с направлениями обучения
+        Task<List<TrainingArea>> GetAllTrainingAreas();
 
-        Task<VersionsDirectionTrainingDTO> GetDirectionTrainingDetails(Guid uuid);
+        // Метод для асинхронного получения деталей версии направления обучения по UUID
+        Task<VersionsDirectionTrainingDTO> GetVersionDirectionTrainingDetails(Guid uuid);
     }
 }

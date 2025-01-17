@@ -1,10 +1,12 @@
 ﻿using RoadmapDesigner.Server.Models.DTO;
-using RoadmapDesigner.Server.Models.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RoadmapDesigner.Server.Interfaces
 {
     public interface IDisciplineRepository
     {
-        Task<List<DisciplineDTO>> GetListDisciplineAsync();
+        // Метод для асинхронного получения списка дисциплин
+        Task<List<DisciplineDTO>> GetListDisciplinesAsync();
     }
 }

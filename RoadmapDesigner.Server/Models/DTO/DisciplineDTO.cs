@@ -1,9 +1,11 @@
-﻿namespace RoadmapDesigner.Server.Models.DTO
+﻿using System;
+
+namespace RoadmapDesigner.Server.Models.DTO
 {
     public class DisciplineDTO
     {
-        public Guid Uuid { get; set; }
+        public Guid Uuid { get; set; } // Уникальный идентификатор дисциплины
 
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = null!; // Название дисциплины
     }
 }

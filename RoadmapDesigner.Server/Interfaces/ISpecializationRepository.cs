@@ -1,11 +1,16 @@
 ﻿using RoadmapDesigner.Server.Models.DTO;
-using RoadmapDesigner.Server.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RoadmapDesigner.Server.Interfaces
 {
     public interface ISpecializationRepository
     {
-        Task<List<SpecializationDTO>> GetListSpecializationByDirTrainingID(Guid dirTrainingID);
-        Task<SpecializationDTO> GetSpecializationByGuid(Guid specID);
+        // Метод для асинхронного получения списка специализаций по идентификатору направления подготовки
+        Task<List<SpecializationDTO>> GetListSpecializationsByDirTrainingUuid(Guid dirTrainingUuid);
+
+        // Метод для асинхронного получения специализации по UUID
+        Task<SpecializationDTO> GetSpecializationByUuid(Guid specUuid);
     }
 }

@@ -1,7 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RoadmapDesigner.Server.Interfaces;
 using RoadmapDesigner.Server.Models.DTO;
 using RoadmapDesigner.Server.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RoadmapDesigner.Server.Repositories
 {
@@ -14,30 +19,30 @@ namespace RoadmapDesigner.Server.Repositories
         // Конструктор, принимающий контекст и логгер
         public DirectionTrainingRepository(RoadmapContext context, ILogger<DirectionTrainingRepository> logger)
         {
-            _context = context;
-            _logger = logger;
+            _context = context; // Инициализация контекста
+            _logger = logger;   // Инициализация логгера
         }
 
         // Метод для получения всех версий направлений обучения
-        public async Task<IEnumerable<VersionsDirectionTrainingDTO>> GetAllVersionsDirectionTrainingAsync()
+        public async Task<IEnumerable<VersionsDirectionTrainingDTO>> GetAllAsync()
         {
             try
             {
-                _logger.LogInformation("Функция GetAllDirectionTrainingAsync начала работу."); // Логирование начала работы метода
+                _logger.LogInformation("Начало выполнения запроса на получение всех версий направлений обучения.");
 
-                // Получение списка направлений обучения с загрузкой связанных данных из DirectionTraining
+                // Получение списка версий направлений обучения с загрузкой связанных данных из DirectionTraining
                 var listDirectionTrainings = await _context.VersionsDirectionTrainings
                     .Include(v => v.CodeNavigation) // Загрузка данных из DirectionTraining
                     .ToListAsync();
 
-                _logger.LogInformation($"Функция GetAllDirectionTrainingAsync вернула {listDirectionTrainings.Count} объектов."); // Логирование количества полученных объектов
+                _logger.LogInformation($"Запрос на получение всех версий направлений обучения вернул {listDirectionTrainings.Count} записей.");
 
                 // Преобразование данных в DTO и возврат результата
                 return listDirectionTrainings.Select(dt => new VersionsDirectionTrainingDTO
                 {
                     Uuid = dt.Uuid,
                     Code = dt.Code,
-                    Name = dt.CodeNavigation.Name, // Данные из DirectionTraining
+                    Name = dt.CodeNavigation.Name,
                     LevelQualification = dt.LevelQualification,
                     FormEducation = dt.FormEducation,
                     TrainingDepartment = dt.TrainingDepartment,
@@ -46,41 +51,44 @@ namespace RoadmapDesigner.Server.Repositories
             }
             catch (DbUpdateException dbEx)
             {
-                _logger.LogError(dbEx, "Ошибка при обращении к базе данных."); // Логирование ошибки базы данных
-                return Enumerable.Empty<VersionsDirectionTrainingDTO>(); // Возврат пустого списка в случае ошибки
+                _logger.LogError(dbEx, "Ошибка при обращении к базе данных.");
+                throw; // Пробрасываем исключение на уровень сервиса
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Произошла неожиданная ошибка."); // Логирование неожиданной ошибки
-                return Enumerable.Empty<VersionsDirectionTrainingDTO>(); // Возврат пустого списка в случае ошибки
+                _logger.LogError(ex, "Произошла неожиданная ошибка.");
+                throw; // Пробрасываем исключение на уровень сервиса
             }
         }
 
         // Метод для получения деталей определённой версии направления обучения по UUID
-        public async Task<VersionsDirectionTrainingDTO?> GetVersionDirectionTrainingDetailsAsync(Guid uuid)
+        public async Task<VersionsDirectionTrainingDTO> GetDetailsAsync(Guid uuid)
         {
-            _logger.LogInformation($"Функция GetVersionDirectionTrainingDetailsAsync начала работу с кодом {uuid}"); // Логирование начала работы метода с параметром UUID
+            _logger.LogInformation($"Начало выполнения запроса на получение деталей версии направления обучения с UUID: {uuid}.");
             try
             {
-                // Поиск записи по UUID и году создания, с загрузкой данных из DirectionTraining
+                // Получение последней версии направления обучения по UUID, с загрузкой данных из DirectionTraining
                 var version = await _context.VersionsDirectionTrainings
-                    .Include(v => v.CodeNavigation) // Загрузка данных из DirectionTraining
-                    .FirstOrDefaultAsync(dt => dt.Uuid == uuid && dt.CreatedDate.Year == DateTime.Now.Year);
+                     .Include(v => v.CodeNavigation)
+                    .Where(v => v.Uuid == uuid) // Фильтрация по UUID
+                     .OrderByDescending(v => v.CreatedDate) // Сортировка по дате создания (последняя)
+                    .FirstOrDefaultAsync(); // Получение первой или null
 
-                if (version == null) // Проверка, если запись не найдена
+                // Проверка на null
+                if (version == null)
                 {
-                    _logger.LogWarning($"Версия с кодом {uuid} не найдена."); // Логирование предупреждения
-                    return null; // Возврат null, если запись не найдена
+                    _logger.LogWarning($"Версия направления обучения с UUID: {uuid} не найдена.");
+                    return null; // Возврат null если версия не найдена
                 }
 
-                _logger.LogInformation($"Функция GetVersionDirectionTrainingDetailsAsync вернула объект: {version} \nUUID: {version.Uuid}"); // Логирование успешного получения данных
+                _logger.LogInformation($"Запрос на получение деталей версии направления обучения с UUID: {uuid} успешен.");
 
                 // Преобразование данных в DTO и возврат результата
                 return new VersionsDirectionTrainingDTO
                 {
                     Uuid = version.Uuid,
                     Code = version.Code,
-                    Name = version.CodeNavigation.Name, // Данные из DirectionTraining
+                    Name = version.CodeNavigation.Name,
                     LevelQualification = version.LevelQualification,
                     FormEducation = version.FormEducation,
                     TrainingDepartment = version.TrainingDepartment,
@@ -89,15 +97,14 @@ namespace RoadmapDesigner.Server.Repositories
             }
             catch (DbUpdateException dbEx)
             {
-                _logger.LogError(dbEx, "Ошибка при обращении к базе данных."); // Логирование ошибки базы данных
-                return null; // Возврат null в случае ошибки
+                _logger.LogError(dbEx, "Ошибка при обращении к базе данных.");
+                throw;  // Пробрасываем исключение на уровень сервиса
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Произошла неожиданная ошибка."); // Логирование неожиданной ошибки
-                return null; // Возврат null в случае ошибки
+                _logger.LogError(ex, "Произошла неожиданная ошибка.");
+                throw; // Пробрасываем исключение на уровень сервиса
             }
         }
     }
 }
-
