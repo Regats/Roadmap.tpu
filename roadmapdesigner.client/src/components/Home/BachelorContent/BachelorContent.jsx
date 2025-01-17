@@ -25,7 +25,6 @@ export function BachelorConten(){
         setId(event.target.id)
     }
 
-
     return(
         <>
             <div className="container-content__direction">
@@ -97,3 +96,5 @@ export function BachelorConten(){
         </>
     )
 }
+
+
