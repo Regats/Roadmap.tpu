@@ -20,6 +20,8 @@ namespace RoadmapDesigner.Server.Interfaces
         // Метод для асинхронного получения пользователя по UUID
         Task<UserDTO> GetUserByGuidAsync(Guid userUuid);
 
+        Task<UserDTO> GetUserByLoginAsync(string login);
+
         // Метод для асинхронного получения списка всех пользователей
         Task<List<UserDTO>> GetUsersAsync();
     }

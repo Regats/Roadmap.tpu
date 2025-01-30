@@ -1,15 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from '../auth-context';
 
 export function Header() {
-    const handleLogin = () => {
-        const clientId = "Ваш_client_id"; // Укажите ваш client_id
-        const redirectUri = encodeURIComponent("https://localhost:5173/callback");
-        const state = encodeURIComponent("random_state_string");
-
-        const authUrl = `https://oauth.tpu.ru/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state=${state}`;
-        window.location.href = authUrl;
-    };
+    const { user, login, logout, isLoading } = useAuth();
 
     return (
         <header>
@@ -22,7 +16,18 @@ export function Header() {
                         <nav className="nav">
                             <Link to="/" className="nav__link">Главная</Link>
                             <Link to="/constructor" className="nav__link">Дорожные карты</Link>
-                            <button className="btn" onClick={handleLogin}>Войти</button>
+                            {isLoading ? null : user ? (
+                                <span
+                                    style={{ cursor: 'pointer' }}
+                                    className="btn"
+                                    onClick={logout}
+                                >
+                                    {user.name}
+                                </span>
+                            ) : (
+                                <button className="btn" onClick={login}>Войти</button>
+                            )}
+
                         </nav>
                     </div>
                 </div>

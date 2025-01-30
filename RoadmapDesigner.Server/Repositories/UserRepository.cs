@@ -74,6 +74,54 @@ namespace RoadmapDesigner.Server.Repositories
 
         }
 
+        public async Task<UserDTO> GetUserByLoginAsync(string login)
+        {
+            try
+            {
+                _logger.LogInformation($"Начало запроса на получение пользователя с login: {login}");
+
+                // Получаем пользователя по UUID
+                var user = await _context.Users
+                    .Where(u => u.Login == login)
+                    .SingleOrDefaultAsync()
+                    .ConfigureAwait(false);
+
+                // Проверка на null
+                if (user == null)
+                {
+                    _logger.LogWarning($"Пользователь с login: {login} не найден.");
+                    return null;
+                }
+
+                // Получаем роль пользователя
+                var role = await _context.UserRoles.FindAsync(user.RoleId).ConfigureAwait(false);
+
+                _logger.LogInformation($"Успешно получен пользователь с login: {login}");
+                // Преобразуем пользователя в DTO
+                return new UserDTO
+                {
+                    UserId = user.UserId,    // Копируем идентификатор
+                    LastName = user.LastName, // Копируем фамилию
+                    FirstName = user.FirstName,  // Копируем имя
+                    MiddleName = user.MiddleName, // Копируем отчество
+                    Email = user.Email,  // Копируем email
+                    Login = user.Login, // Копируем логин
+                    Role = role?.Role // Копируем роль
+                };
+            }
+            catch (DbUpdateException dbEx)
+            {
+                _logger.LogError(dbEx, "Ошибка при обращении к базе данных.");
+                throw;   // Пробрасываем исключение на уровень сервиса
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Произошла ошибка при получении пользователя с login: {login}");
+                throw; // Пробрасываем исключение на уровень сервиса
+            }
+
+        }
+
         // Метод для асинхронного получения пользователя по UUID
         public async Task<UserDTO> GetUserByGuidAsync(Guid userUuid)
         {

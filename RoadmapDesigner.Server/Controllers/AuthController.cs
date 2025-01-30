@@ -17,11 +17,18 @@ namespace RoadmapDesigner.Server.Controllers
         }
 
 
+        //[HttpGet("login")]
+        //public IActionResult Login()
+        //{
+        //    // Redirect пользователя на страницу авторизации TPU
+        //    return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "TPU");
+        //}
+
         [HttpGet("login")]
         public IActionResult Login()
         {
             // Redirect пользователя на страницу авторизации TPU
-            return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "TPU");
+            return Challenge(new AuthenticationProperties { RedirectUri = "https://localhost:5173/" }, "GitHub");
         }
 
         [HttpGet("logout")]
@@ -30,17 +37,18 @@ namespace RoadmapDesigner.Server.Controllers
             _logger.LogInformation("Выход пользователя из системы");
 
             //Выход из системы с очисткой куки
-            return SignOut(new AuthenticationProperties { RedirectUri = "/" }, CookieAuthenticationDefaults.AuthenticationScheme);
+            return SignOut(new AuthenticationProperties { RedirectUri = "https://localhost:5173/" }, CookieAuthenticationDefaults.AuthenticationScheme);
         }
-        //  [HttpGet("signin-tpu")] // Важно что бы CallbackPath совпадал с настройкой OAuth провайдера
-        // public async Task<IActionResult> SignInTpuCallback()
-        // {
-        //   var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        //   if (!authenticateResult.Succeeded)
-        //   {
-        //     return BadRequest("Ошибка аутентификации");
-        //   }
-        //   return LocalRedirect("/");
-        // }
+
+        [HttpGet("signin-github")] // Важно что бы CallbackPath совпадал с настройкой OAuth провайдера
+        public async Task<IActionResult> SignInGithubCallback()
+        {
+            var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (!authenticateResult.Succeeded)
+            {
+                return BadRequest("Ошибка аутентификации");
+            }
+            return LocalRedirect("/");
+        }
     }
 }
