@@ -13,11 +13,6 @@
                 },
                 new TrainingArea
                 {
-                    Code = "02.00.00",
-                    Name = "КОМПЬЮТЕРНЫЕ И ИНФОРМАЦИОННЫЕ НАУКИ"
-                },
-                new TrainingArea
-                {
                     Code = "03.00.00",
                     Name = "ФИЗИКА И АСТРОНОМИЯ"
                 },
@@ -33,28 +28,8 @@
                 },
                 new TrainingArea
                 {
-                    Code = "06.00.00",
-                    Name = "БИОЛОГИЧЕСКИЕ НАУКИ"
-                },
-                new TrainingArea
-                {
-                    Code = "07.00.00",
-                    Name = "АРХИТЕКТУРА"
-                },
-                new TrainingArea
-                {
-                    Code = "08.00.00",
-                    Name = "ТЕХНИКА И ТЕХНОЛОГИИ СТРОИТЕЛЬСТВА"
-                },
-                new TrainingArea
-                {
                     Code = "09.00.00",
                     Name = "ИНФОРМАТИКА И ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА"
-                },
-                new TrainingArea
-                {
-                    Code = "10.00.00",
-                    Name = "ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ"
                 },
                 new TrainingArea
                 {
@@ -88,11 +63,6 @@
                 },
                 new TrainingArea
                 {
-                    Code = "17.00.00",
-                    Name = "ОРУЖИЕ И СИСТЕМЫ ВООРУЖЕНИЯ"
-                },
-                new TrainingArea
-                {
                     Code = "18.00.00",
                     Name = "ХИМИЧЕСКИЕ ТЕХНОЛОГИИ"
                 },
@@ -118,38 +88,8 @@
                 },
                 new TrainingArea
                 {
-                    Code = "23.00.00",
-                    Name = "ТЕХНИКА И ТЕХНОЛОГИИ НАЗЕМНОГО ТРАНСПОРТА"
-                },
-                new TrainingArea
-                {
-                    Code = "24.00.00",
-                    Name = "АВИАЦИОННАЯ И РАКЕТНО-КОСМИЧЕСКАЯ ТЕХНИКА"
-                },
-                new TrainingArea
-                {
-                    Code = "25.00.00",
-                    Name = "АЭРОНАВИГАЦИЯ И ЭКСПЛУАТАЦИЯ АВИАЦИОННОЙ И РАКЕТНО-КОСМИЧЕСКОЙ ТЕХНИКИ"
-                },
-                new TrainingArea
-                {
-                    Code = "26.00.00",
-                    Name = "ТЕХНИКА И ТЕХНОЛОГИИ КОРАБЛЕСТРОЕНИЯ И ВОДНОГО ТРАНСПОРТА"
-                },
-                new TrainingArea
-                {
                     Code = "27.00.00",
                     Name = "УПРАВЛЕНИЕ В ТЕХНИЧЕСКИХ СИСТЕМАХ"
-                },
-                new TrainingArea
-                {
-                    Code = "28.00.00",
-                    Name = "НАНОТЕХНОЛОГИИ И НАНОМАТЕРИАЛЫ"
-                },
-                new TrainingArea
-                {
-                    Code = "29.00.00",
-                    Name = "ТЕХНОЛОГИИ ЛЕГКОЙ ПРОМЫШЛЕННОСТИ"
                 },
                 new TrainingArea
                 {
@@ -165,11 +105,6 @@
                 {
                     Code = "39.00.00",
                     Name = "СОЦИОЛОГИЯ И СОЦИАЛЬНАЯ РАБОТА"
-                },
-                new TrainingArea
-                {
-                    Code = "41.00.00",
-                    Name = "ПОЛИТИЧЕСКИЕ НАУКИ И РЕГИОНОВЕДЕНИЕ"
                 },
                 new TrainingArea
                 {
@@ -193,11 +128,6 @@
                 },
                 new TrainingArea
                 {
-                    Code = "46.00.00",
-                    Name = "ИСТОРИЯ И АРХЕОЛОГИЯ"
-                },
-                new TrainingArea
-                {
                     Code = "47.00.00",
                     Name = "ФИЛОСОФИЯ, ЭТИКА И РЕЛИГИОВЕДЕНИЕ"
                 },
@@ -205,21 +135,6 @@
                 {
                     Code = "50.00.00",
                     Name = "ИСКУССТВОЗНАНИЕ"
-                },
-                new TrainingArea
-                {
-                    Code = "51.00.00",
-                    Name = "КУЛЬТУРОВЕДЕНИЕ И СОЦИОКУЛЬТУРНЫЕ ПРОЕКТЫ"
-                },
-                new TrainingArea
-                {
-                    Code = "52.00.00",
-                    Name = "СЦЕНИЧЕСКИЕ ИСКУССТВА И ЛИТЕРАТУРНОЕ ТВОРЧЕСТВО"
-                },
-                new TrainingArea
-                {
-                    Code = "53.00.00",
-                    Name = "МУЗЫКАЛЬНОЕ ИСКУССТВО"
                 },
                 new TrainingArea
                 {

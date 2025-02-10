@@ -1,4 +1,4 @@
-import { Header } from './components/Header'
+﻿import { Header } from './components/Header'
 import { React, useState, useEffect } from 'react'
 import './styles/main.css'
 import { Footer } from './components/Footer'
@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from "react-route
 import Callback from "./components/Callback";
 import { AuthProvider } from "./auth-context";
 import { RequireAuth } from './require-auth';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 
 export function App() {
     const [id, setId] = useState(() => localStorage.getItem('id') || '');
@@ -37,7 +39,7 @@ export function App() {
                         <Route path={`/${id}`} element={<RequireAuth><SelectType title={title} /></RequireAuth>} />
                         <Route path='/constructor' element={<RequireAuth><Constructor /></RequireAuth>} />
                     </Routes>
-                    <Footer />
+                    <Footer style={{ position: 'absolute', bottom: '0', width: '100%' }} />
                 </>
             </Contex.Provider>
         </AuthProvider>

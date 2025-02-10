@@ -16,14 +16,6 @@ namespace RoadmapDesigner.Server.Controllers
             _logger = logger;
         }
 
-
-        //[HttpGet("login")]
-        //public IActionResult Login()
-        //{
-        //    // Redirect пользователя на страницу авторизации TPU
-        //    return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "TPU");
-        //}
-
         [HttpGet("login")]
         public IActionResult Login()
         {

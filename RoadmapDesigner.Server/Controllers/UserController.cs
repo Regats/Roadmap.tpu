@@ -80,7 +80,6 @@ namespace RoadmapDesigner.Server.Controllers
                 _logger.LogError(ex, "Произошла ошибка при получении списка пользователей.");
                 return StatusCode(500, "Произошла внутренняя ошибка сервера."); // Возвращаем 500 в случае ошибки
             }
-
         }
     }
 }

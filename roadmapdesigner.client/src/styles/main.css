@@ -265,7 +265,6 @@ body{
     display: flex;
     justify-content: center;
     background: rgba(243, 245, 246, 1);
-    max-height: 1006px;
 }
 
 .container_direction{

@@ -43,108 +43,11 @@ try
         options.DefaultChallengeScheme = "TPU";
     })
     .AddCookie()
-    //.AddOAuth("TPU", options =>
-    //{
-    //    options.ClientId = builder.Configuration["TPU:ClientId"]; // Получаем client_id из конфигурации
-    //    options.ClientSecret = builder.Configuration["TPU:ClientSecret"]; // Получаем client_secret из конфигурации
-    //    options.CallbackPath = new PathString("/signin-tpu"); // Должен совпадать с redirect_uri
-
-    //    options.AuthorizationEndpoint = "https://oauth.tpu.ru/authorize";
-    //    options.TokenEndpoint = "https://oauth.tpu.ru/access_token";
-    //    options.UserInformationEndpoint = "https://api.tpu.ru/v2/auth/user";
-
-    //    options.SaveTokens = true; // Сохраняем токены в cookie
-
-    //    options.ClaimActions.MapJsonKey("id", "user_id");
-    //    options.ClaimActions.MapJsonKey("email", "email");
-    //    options.ClaimActions.MapJsonKey("name", "lichnost.imya");
-    //    options.ClaimActions.MapJsonKey("surname", "lichnost.familiya");
-
-    //    options.Events = new OAuthEvents
-    //    {
-    //        OnCreatingTicket = async context =>
-    //        {
-    //            var apiKey = builder.Configuration["TPU:ApiKey"]; // Загрузка apiKey из конфигурации
-    //            var request = new HttpRequestMessage(HttpMethod.Get, options.UserInformationEndpoint);
-    //            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
-    //            request.Headers.Add("apiKey", apiKey); // Добавление apiKey в заголовок запроса
-    //            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-    //            var response = await context.Backchannel.SendAsync(request).ConfigureAwait(false);
-    //            response.EnsureSuccessStatusCode();
-
-    //            var user = JsonDocument.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-    //            context.RunClaimActions(user.RootElement);
-    //        }
-    //    };
-    //});
-
-    //  .AddOAuth("TPU", options =>  // Конфигурация OAuth для ТПУ (закомментирована)
-    // {
-    //     options.ClientId = builder.Configuration["TPU:ClientId"]; // Получаем client_id из конфигурации
-    //     options.ClientSecret = builder.Configuration["TPU:ClientSecret"]; // Получаем client_secret из конфигурации
-    //     options.CallbackPath = new PathString("/signin-tpu"); // Должен совпадать с redirect_uri
-
-    //     options.AuthorizationEndpoint = "https://oauth.tpu.ru/authorize";
-    //     options.TokenEndpoint = "https://oauth.tpu.ru/access_token";
-    //     options.UserInformationEndpoint = "https://api.tpu.ru/v2/auth/user";
-
-    //     options.SaveTokens = true; // Сохраняем токены в cookie
-
-    //     options.ClaimActions.MapJsonKey("id", "user_id");
-    //     options.ClaimActions.MapJsonKey("email", "email");
-    //     options.ClaimActions.MapJsonKey("name", "lichnost.imya");
-    //     options.ClaimActions.MapJsonKey("surname", "lichnost.familiya");
-
-    //      options.Events = new OAuthEvents
-    //     {
-    //        OnCreatingTicket = async context =>
-    //         {
-    //             var loggerFactory = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
-    //             var logger = loggerFactory.CreateLogger("OAuthEvents");
-    //             try
-    //             {
-    //                  var apiKey = builder.Configuration["TPU:ApiKey"]; // Загрузка apiKey из конфигурации
-    //                 var request = new HttpRequestMessage(HttpMethod.Get, options.UserInformationEndpoint);
-    //                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
-    //                  request.Headers.Add("apiKey", apiKey); // Добавление apiKey в заголовок запроса
-    //                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-    //                 var response = await context.Backchannel.SendAsync(request).ConfigureAwait(false);
-    //                 response.EnsureSuccessStatusCode();
-
-    //                 var user = JsonDocument.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-
-    //                 var userIdClaim = user.RootElement.GetProperty("user_id").GetString();
-    //                  //получите из базы данных роль пользователя по userId
-    //                 var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
-    //                 var userDto = await userRepository.GetUserByGuidAsync(Guid.Parse(userIdClaim));
-
-    //                  if (userDto == null)
-    //                   {
-    //                       logger.LogWarning($"Пользователь с ID: {userIdClaim} не найден в базе данных.");
-    //                         context.Fail("Пользователь не найден.");
-    //                       return;
-
-    //                   }
-    //                 // Добавляем роль пользователя в клеймы
-    //                 context.Identity.AddClaim(new Claim(ClaimTypes.Role, userDto.Role));
-    //                 context.RunClaimActions(user.RootElement);
-    //              }
-    //             catch (Exception ex)
-    //             {
-    //                logger.LogError(ex, "Ошибка при обращении к API ТПУ или базе данных.");
-    //                   context.Fail("Ошибка авторизации");
-    //                return;
-    //             }
-    //         }
-    //     };
-    // })
-  .AddOAuth("GitHub", options => // Конфигурация OAuth для GitHub
-  {
-      options.ClientId = builder.Configuration["GitHub:ClientId"]; // Получаем client_id из конфигурации
-      options.ClientSecret = builder.Configuration["GitHub:ClientSecret"]; // Получаем client_secret из конфигурации
-      options.CallbackPath = new PathString("/signin-github"); // Должен совпадать с redirect_uri
+    .AddOAuth("GitHub", options => // Конфигурация OAuth для GitHub
+    {
+        options.ClientId = builder.Configuration["GitHub:ClientId"]; // Получаем client_id из конфигурации
+        options.ClientSecret = builder.Configuration["GitHub:ClientSecret"]; // Получаем client_secret из конфигурации
+        options.CallbackPath = new PathString("/signin-github"); // Должен совпадать с redirect_uri
 
       options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
       options.TokenEndpoint = "https://github.com/login/oauth/access_token";

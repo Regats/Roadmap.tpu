@@ -55,7 +55,6 @@ namespace RoadmapDesigner.Server.Controllers
                 _logger.LogError(ex, $"Произошла ошибка при получении списка специализаций для направления подготовки с UUID: {dirTrainingUuid}");
                 return StatusCode(500, "Произошла внутренняя ошибка сервера."); // Возвращаем 500 в случае ошибки
             }
-
         }
 
         // Обработчик для GET запроса на получение специализации по UUID
@@ -91,7 +90,6 @@ namespace RoadmapDesigner.Server.Controllers
                 _logger.LogError(ex, $"Произошла ошибка при получении специализации с UUID: {specUuid}");
                 return StatusCode(500, "Произошла внутренняя ошибка сервера."); // Возвращаем 500 в случае ошибки
             }
-
         }
     }
 }

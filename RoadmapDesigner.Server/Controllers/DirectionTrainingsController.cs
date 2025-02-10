@@ -41,7 +41,7 @@ namespace RoadmapDesigner.Server.Controllers
                     return NotFound("Области обучения не найдены."); // Возвращаем 404, если ничего не найдено
                 }
 
-                _logger.LogInformation($"Успешно получено {trainingAreas.Count} областей обучения.");
+                _logger.LogInformation($"[{DateTime.Now:G}] Успешно получено {trainingAreas.Count} областей обучения.");
                 return Ok(trainingAreas); // Возвращаем 200 OK с данными
             }
             catch (Exception ex)

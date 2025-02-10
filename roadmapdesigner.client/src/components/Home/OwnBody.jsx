@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { BachelorConten } from "./BachelorContent/BachelorContent";
+import { BachelorContent } from "./BachelorContent/BachelorContent";
 
 export function OwnBody() {
 
@@ -16,7 +16,7 @@ export function OwnBody() {
     }
 
     const handleMouseEnter = (buttonId) => {
-        setHoveredButton(buttonId); r
+        setHoveredButton(buttonId); 
 
     };
 
@@ -96,7 +96,7 @@ export function OwnBody() {
                             onMouseLeave={handleMouseLeave}
                             style={buttonStyle(3)}>АСПИРАНТУРА</button>
                     </div>
-                    {activeButton === 1 && <BachelorConten />}
+                    {activeButton === 1 && <BachelorContent />}
                 </div>
             </div>
         </>

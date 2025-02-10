@@ -80,24 +80,20 @@ namespace RoadmapDesigner.Server.Repositories
             {
                 _logger.LogInformation($"Начало запроса на получение пользователя с login: {login}");
 
-                // Получаем пользователя по UUID
+                // Получаем пользователя по логину
                 var user = await _context.Users
-                    .Where(u => u.Login == login)
-                    .SingleOrDefaultAsync()
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.Login == login)
                     .ConfigureAwait(false);
 
-                // Проверка на null
                 if (user == null)
                 {
                     _logger.LogWarning($"Пользователь с login: {login} не найден.");
                     return null;
                 }
 
-                // Получаем роль пользователя
-                var role = await _context.UserRoles.FindAsync(user.RoleId).ConfigureAwait(false);
-
                 _logger.LogInformation($"Успешно получен пользователь с login: {login}");
-                // Преобразуем пользователя в DTO
+
                 return new UserDTO
                 {
                     UserId = user.UserId,    // Копируем идентификатор
@@ -106,7 +102,7 @@ namespace RoadmapDesigner.Server.Repositories
                     MiddleName = user.MiddleName, // Копируем отчество
                     Email = user.Email,  // Копируем email
                     Login = user.Login, // Копируем логин
-                    Role = role?.Role // Копируем роль
+                    Role = user.Role.Role // Копируем роль
                 };
             }
             catch (DbUpdateException dbEx)
@@ -119,7 +115,6 @@ namespace RoadmapDesigner.Server.Repositories
                 _logger.LogError(ex, $"Произошла ошибка при получении пользователя с login: {login}");
                 throw; // Пробрасываем исключение на уровень сервиса
             }
-
         }
 
         // Метод для асинхронного получения пользователя по UUID
