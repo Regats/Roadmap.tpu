@@ -99,5 +99,33 @@ namespace RoadmapDesigner.Server.Repositories
                 throw;  // Пробрасываем исключение на уровень сервиса
             }
         }
+
+        //public async Task<bool> UpdateSpecializationAsync(SpecializationDTO specializationDTO)
+        //{
+        //    try
+        //    {
+
+        //        var existSpecialization = await _context.Specializations.FindAsync(specializationDTO.Uuid);
+
+        //        if (existSpecialization == null)
+        //        {
+        //            _logger.LogWarning($"При обновлении данных специализация {specializationDTO.Uuid} не найдена.");
+        //            return false;
+        //        }
+
+        //        existSpecialization.Name = specializationDTO.Name;
+        //        existSpecialization.RoadmapJson = specializationDTO.RoadmapJson;
+
+        //        await _context.SaveChangesAsync().ConfigureAwait(false);
+        //        _logger.LogInformation($"Обновление данны");
+        //        return true;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+
+        //}
     }
 }

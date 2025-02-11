@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using RoadmapDesigner.Server.Models.DTO;
+using RoadmapDesigner.Server.Decorators;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,9 @@ try
     builder.Services.AddScoped<IDisciplineService, DisciplineService>();
     builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
     builder.Services.AddScoped<ISpecializationService, SpecializationService>();
+
+
+    builder.Services.AddSingleton(typeof(ILogger<>), typeof(TimeStampLoggerDecorator<>)); // Стандартный логгер
 
     // Добавление DbContext
     var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
