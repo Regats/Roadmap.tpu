@@ -33,7 +33,7 @@ try
     builder.Services.AddScoped<ISpecializationService, SpecializationService>();
 
 
-    builder.Services.AddSingleton(typeof(ILogger<>), typeof(TimeStampLoggerDecorator<>)); // Стандартный логгер
+    //builder.Services.AddSingleton(typeof(ILogger<>), typeof(TimeStampLoggerDecorator<>)); // Стандартный логгер
 
     // Добавление DbContext
     var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");

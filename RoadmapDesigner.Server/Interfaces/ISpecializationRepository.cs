@@ -12,5 +12,7 @@ namespace RoadmapDesigner.Server.Interfaces
 
         // Метод для асинхронного получения специализации по UUID
         Task<SpecializationDTO> GetSpecializationByUuid(Guid specUuid);
+        // Метод для асинхронного обновления имени и roadmap-а специализации
+        Task <bool> UpdateSpecializationAsync(SpecializationDTO specializationDTO);
     }
 }

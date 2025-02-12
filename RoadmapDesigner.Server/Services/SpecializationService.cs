@@ -59,5 +59,32 @@ namespace RoadmapDesigner.Server.Services
                 return null;  // Возвращаем null в случае ошибки
             }
         }
+
+        public async Task<bool> UpdateSpecializationAsync(SpecializationDTO specializationDTO)
+        {
+            try
+            {
+                _logger.LogInformation($"Начало обновления специализации с UUID: {specializationDTO.Uuid}");
+
+                // Вызываем репозиторий для обновления специализации
+                bool result = await _specializationRepository.UpdateSpecializationAsync(specializationDTO);
+
+                if (result)
+                {
+                    _logger.LogInformation($"Специализация с UUID: {specializationDTO.Uuid} успешно обновлена.");
+                    return true;
+                }
+                else
+                {
+                    _logger.LogWarning($"Не удалось обновить специализацию с UUID: {specializationDTO.Uuid}.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Произошла ошибка при обновлении специализации с UUID: {specializationDTO.Uuid}");
+                return false; // Возвращаем false в случае ошибки
+            }
+        }
     }
 }

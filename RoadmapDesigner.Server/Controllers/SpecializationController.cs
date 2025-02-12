@@ -91,5 +91,43 @@ namespace RoadmapDesigner.Server.Controllers
                 return StatusCode(500, "Произошла внутренняя ошибка сервера."); // Возвращаем 500 в случае ошибки
             }
         }
+        [HttpPut]
+        public async Task<ActionResult> UpdateSpecializationAsync([FromBody] SpecializationDTO specializationDTO)
+        {
+            try
+            {
+                if (specializationDTO == null)
+                {
+                    _logger.LogWarning("При изменении специализации метод получил пустой объект.");
+                    return BadRequest("Некорректные данные. Объект специализации не может быть null.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogWarning($"Некорректные данные специализации с UUID: {specializationDTO.Uuid}. {ModelState}");
+                    return BadRequest(ModelState); // Возвращает 400 с информацией об ошибках валидации
+                }
+
+                _logger.LogInformation($"Попытка обновления специализации с UUID: {specializationDTO.Uuid}.");
+
+                bool result = await _specializationService.UpdateSpecializationAsync(specializationDTO);
+
+                if (result)
+                {
+                    _logger.LogInformation($"Специализация с UUID: {specializationDTO.Uuid} успешно обновлена.");
+                    return NoContent(); // Успешное обновление, возвращаем 204 NoContent
+                }
+                else
+                {
+                    _logger.LogWarning($"Не удалось обновить специализацию с UUID: {specializationDTO.Uuid}.");
+                    return NotFound($"Специализация с UUID: {specializationDTO.Uuid} не найдена."); // Возвращаем 404, если не найдена
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Произошла ошибка при обновлении специализации с UUID: {specializationDTO.Uuid}.");
+                return StatusCode(500, "Произошла внутренняя ошибка сервера."); // Возвращаем 500 в случае ошибки
+            }
+        }
     }
 }

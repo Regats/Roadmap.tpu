@@ -100,32 +100,52 @@ namespace RoadmapDesigner.Server.Repositories
             }
         }
 
-        //public async Task<bool> UpdateSpecializationAsync(SpecializationDTO specializationDTO)
-        //{
-        //    try
-        //    {
+        // Метод для асинхронного обновления специализации
+        public async Task<bool> UpdateSpecializationAsync(SpecializationDTO specializationDTO)
+        {
+            try
+            {
+                _logger.LogInformation($"Начало обновления специализации с UUID: {specializationDTO.Uuid}");
 
-        //        var existSpecialization = await _context.Specializations.FindAsync(specializationDTO.Uuid);
+                var existSpecialization = await _context.Specializations.FindAsync(specializationDTO.Uuid);
 
-        //        if (existSpecialization == null)
-        //        {
-        //            _logger.LogWarning($"При обновлении данных специализация {specializationDTO.Uuid} не найдена.");
-        //            return false;
-        //        }
+                if (existSpecialization == null)
+                {
+                    _logger.LogWarning($"Специализация с UUID: {specializationDTO.Uuid} не найдена.");
+                    return false;
+                }
 
-        //        existSpecialization.Name = specializationDTO.Name;
-        //        existSpecialization.RoadmapJson = specializationDTO.RoadmapJson;
+                existSpecialization.Name = specializationDTO.Name;
+                existSpecialization.RoadmapJson = specializationDTO.RoadmapJson;
 
-        //        await _context.SaveChangesAsync().ConfigureAwait(false);
-        //        _logger.LogInformation($"Обновление данны");
-        //        return true;
+                _context.Specializations.Update(existSpecialization); // Явно укажите, что объект нужно обновить
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+                int affectedRows = await _context.SaveChangesAsync().ConfigureAwait(false);
 
-        //    }
+                if (affectedRows > 0)
+                {
+                    _logger.LogInformation($"Специализация с UUID: {specializationDTO.Uuid} успешно обновлена.");
+                    return true;
+                }
+                else
+                {
+                    _logger.LogWarning($"Не удалось обновить специализацию с UUID: {specializationDTO.Uuid}. Возможно, данные не изменились.");
+                    return false;
+                }
 
-        //}
+            }
+            catch (DbUpdateException dbEx)
+            {
+                _logger.LogError(dbEx, $"Ошибка при обращении к базе данных при обновлении специализации с UUID: {specializationDTO.Uuid}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Произошла ошибка при обновлении специализации с UUID: {specializationDTO.Uuid}");
+                return false;
+            }
+
+        }
+
     }
 }
