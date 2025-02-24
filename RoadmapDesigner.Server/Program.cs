@@ -32,9 +32,6 @@ try
     builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
     builder.Services.AddScoped<ISpecializationService, SpecializationService>();
 
-
-    //builder.Services.AddSingleton(typeof(ILogger<>), typeof(TimeStampLoggerDecorator<>)); // Стандартный логгер
-
     // Добавление DbContext
     var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     builder.Services.AddDbContext<RoadmapContext>(options =>
