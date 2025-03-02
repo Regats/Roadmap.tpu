@@ -155,9 +155,6 @@ try
 {
     app.UseCors("AllowAll"); // Используем CORS
 
-    // Использование статических файлов
-    app.UseDefaultFiles();
-    app.UseStaticFiles();
 
     // Настройка Swagger в режиме разработки
     if (app.Environment.IsDevelopment())
@@ -174,7 +171,6 @@ try
 
     // Маппинг контроллеров
     app.MapControllers();
-    app.MapFallbackToFile("/index.html");
 
     app.Run();
 }

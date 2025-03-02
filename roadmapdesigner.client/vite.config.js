@@ -1,57 +1,75 @@
-import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-import { defineConfig } from 'vite';
-import plugin from '@vitejs/plugin-react';
-import fs from 'fs';
-import path from 'path';
-import child_process from 'child_process';
-import { env } from 'process';
+// Проверяем, это Docker или нет
+const isDocker = process.env.BUILD_IN_DOCKER === "true";
 
-const baseFolder =
-    env.APPDATA !== undefined && env.APPDATA !== ''
-        ? `${env.APPDATA}/ASP.NET/https`
-        : `${env.HOME}/.aspnet/https`;
+// Настройка HTTPS — по умолчанию выключена
+let httpsConfig = undefined;
 
-const certificateName = "roadmapdesigner.client";
-const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
-const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+// Если это не Docker и не production, то пытаемся поднять dev-certs
+if (process.env.NODE_ENV !== "production" && !isDocker) {
+  import("node:fs").then((fs) => {
+    import("node:path").then((path) => {
+      import("node:child_process").then(({ spawnSync }) => {
+        const baseFolder = process.env.APPDATA
+          ? `${process.env.APPDATA}/ASP.NET/https`
+          : `${process.env.HOME}/.aspnet/https`;
 
-if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-    if (0 !== child_process.spawnSync('dotnet', [
-        'dev-certs',
-        'https',
-        '--export-path',
-        certFilePath,
-        '--format',
-        'Pem',
-        '--no-password',
-    ], { stdio: 'inherit', }).status) {
-        throw new Error("Could not create certificate.");
-    }
+        const certFile = path.join(baseFolder, `roadmapdesigner.client.pem`);
+        const keyFile = path.join(baseFolder, `roadmapdesigner.client.key`);
+
+        if (!fs.existsSync(certFile) || !fs.existsSync(keyFile)) {
+          const result = spawnSync(
+            "dotnet",
+            [
+              "dev-certs",
+              "https",
+              "--export-path",
+              certFile,
+              "--format",
+              "Pem",
+              "--no-password",
+            ],
+            { stdio: "inherit" }
+          );
+
+          if (result.status !== 0) {
+            throw new Error("Не удалось создать dev-certs сертификаты");
+          }
+        }
+
+        httpsConfig = {
+          key: fs.readFileSync(keyFile),
+          cert: fs.readFileSync(certFile),
+        };
+      });
+    });
+  });
 }
 
-const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7244';
+// Настройка прокси для запросов к бэку
+const target = process.env.ASPNETCORE_HTTPS_PORT
+  ? `https://localhost:${process.env.ASPNETCORE_HTTPS_PORT}`
+  : process.env.ASPNETCORE_URLS?.split(";")[0] ?? "https://localhost:7244";
 
-// https://vitejs.dev/config/
+// Экспорт конфигурации Vite
 export default defineConfig({
-    plugins: [plugin()],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
-        }
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
-    server: {
-        proxy: {
-            '^/weatherforecast': {
-                target,
-                secure: false
-            }
-        },
-        port: 5173,
-        https: {
-            key: fs.readFileSync(keyFilePath),
-            cert: fs.readFileSync(certFilePath),
-        }
-    }
-})
+  },
+  server: {
+    proxy: {
+      "^/weatherforecast": {
+        target,
+        secure: false,
+      },
+    },
+    port: 5173,
+    https: httpsConfig,
+  },
+});
